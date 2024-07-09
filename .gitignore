@@ -13,7 +13,7 @@ XTTS-v2/
 JarvisV2
 Voice/
 outputs/
-voice_recording/
+# voice_recording/
 __pycache__/
 
 pipertts/
