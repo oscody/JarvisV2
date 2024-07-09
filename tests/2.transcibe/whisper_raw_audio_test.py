@@ -6,7 +6,7 @@ from faster_whisper import WhisperModel
 import numpy as np
 
 # Define variables
-model_size = "medium.en"
+model_size = "small.en"
 duration = 5  # duration of recording in seconds
 
 

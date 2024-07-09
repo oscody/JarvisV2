@@ -2,12 +2,23 @@ import pyaudio
 import wave
 import time
 from faster_whisper import WhisperModel
+import os
+
+
+# Get the directory of the current script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+print("path",script_dir)
+
+# Define the file path relative to the script's directory
+file_path = os.path.join(script_dir, "../../voice_recording/recording_whisper_test.wav")
+print("file_path",file_path)
+audio_file = file_path  # Path to the audio file to be transcribed
 
 # Define variables
 model_size = "medium.en"
 duration = 5  # Duration of recording in seconds
-file_path = "voice_recording/recording_whisper_test.wav"  # Path to save the recorded audio
-audio_file = file_path  # Path to the audio file to be transcribed
+
 
 
 # Start overall timer
