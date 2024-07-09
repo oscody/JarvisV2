@@ -8,6 +8,9 @@ from pygame import mixer
 
 mixer.init()
 
+
+sampleRate = 22050
+
 wavaudio = BytesIO()
 
 model = "pipertts/en_US-norman-medium.onnx"
@@ -20,7 +23,7 @@ text = 'Hi,there,how can I help you? This is the second sentence of the paragrap
 with wave.open(wavaudio, "wb") as wav_file:
     wav_file.setnchannels(1)  # Mono
     wav_file.setsampwidth(2)  # 2 bytes per sample
-    wav_file.setframerate(22050)  # Sample rate, you can adjust as needed
+    wav_file.setframerate(sampleRate)  # Sample rate, you can adjust as needed
 
     voice.synthesize(text, wav_file)
 
