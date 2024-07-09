@@ -6,7 +6,7 @@ from faster_whisper import WhisperModel
 import numpy as np
 
 # Define variables
-model_size = "small.en"
+model_size = "tiny.en"
 duration = 5  # duration of recording in seconds
 
 
@@ -53,4 +53,4 @@ print(transcription.strip())
 
 # End overall timer
 end_time = time.time()
-print(f"Total execution time: {end_time - start_time:.2f} seconds")
+print(f"model size,{model_size} --- Total execution time: {end_time - start_time:.2f} seconds")

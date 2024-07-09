@@ -16,7 +16,7 @@ print("file_path",file_path)
 audio_file = file_path  # Path to the audio file to be transcribed
 
 # Define variables
-model_size = "medium.en"
+model_size = "tiny.en"
 duration = 5  # Duration of recording in seconds
 
 
@@ -69,4 +69,4 @@ print(transcription.strip())
 
 # End overall timer
 end_time = time.time()
-print(f"Total execution time: {end_time - start_time:.2f} seconds")
+print(f"model size,{model_size} --- Total execution time: {end_time - start_time:.2f} seconds")

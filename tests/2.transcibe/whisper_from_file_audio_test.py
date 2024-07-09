@@ -18,7 +18,7 @@ file_path = os.path.join(script_dir, "../../voice_recording/chicken_test.mp3")
 audio_file = file_path  # Path to the audio file to be transcribed
 
 # Define variables
-model_size = "small.en"
+model_size = "tiny.en"
 duration = 5  # Duration of recording in seconds
 
 print("model size",model_size)
