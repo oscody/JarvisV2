@@ -20,8 +20,8 @@ def jarvis():
             rec.record_audio(audio_file)
             user_input = transcribe.transcribe_with_whisper(audio_file)
             ai_response = ai.send_to_ai(user_input)
-            ai_path = convert.geneate_audio(ai_response)
-            play.play_audio(ai_path)
+            ai_path = convert.geneate_ppt_audio(ai_response)
+            # play.play_audio(ai_path)
 
 
     except KeyboardInterrupt:
