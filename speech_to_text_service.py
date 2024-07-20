@@ -3,9 +3,9 @@ from faster_whisper import WhisperModel
 # Function to transcribe the recorded audio using faster-whisper
 def transcribe_with_whisper(audio_file):
 
-    print(f"transcribe_with_whisper file-{audio_file}")
+    print(f"transcribe_with_whisper file")
 
-    model_size = "tiny.en"
+    model_size = "small.en"
 
     # Using int8 for better performance on M1
     whisper_model = WhisperModel(model_size, compute_type="int8")

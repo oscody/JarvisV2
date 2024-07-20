@@ -1,18 +1,29 @@
 import pyaudio
-import wave
 import time
+import numpy as np
 
-def record_audio(file_path, duration=5):
+
+
+def record_audio(duration=5):
+
+    CHUNK_SIZE = 16000
+    FORMAT = pyaudio.paInt16
+    CHANNELS = 1
+    RATE = 16000
+
     p = pyaudio.PyAudio()
-    stream = p.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=1024)
-    frames = []
+    stream = p.open(format=FORMAT,
+                        channels=CHANNELS,
+                        rate=RATE,
+                        input=True,
+                        frames_per_buffer=CHUNK_SIZE)
 
     print("Recording...")
 
     start_time = time.time()
     while time.time() - start_time < duration:
-        data = stream.read(1024)
-        frames.append(data)
+        data = stream.read(CHUNK_SIZE)
+        audio_data = np.frombuffer(data, dtype=np.int16).astype(np.float32) / 32768.0
 
     print("Recording stopped.")
 
@@ -20,11 +31,6 @@ def record_audio(file_path, duration=5):
     stream.close()
     p.terminate()
 
-    wf = wave.open(file_path, 'wb')
-    wf.setnchannels(1)
-    wf.setsampwidth(p.get_sample_size(pyaudio.paInt16))
-    wf.setframerate(16000)
-    wf.writeframes(b''.join(frames))
-    wf.close()
+    return audio_data
 
 
