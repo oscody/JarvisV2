@@ -18,14 +18,10 @@ machine = platform.machine()
 def detect():
     if system == "Darwin":
         print("Mac")
-        return "Raspberry Pi"
-    elif system == "Linux" and "arm" in machine.lower():
-        if os.path.exists("/sys/firmware/devicetree/base/model"):
-            with open("/sys/firmware/devicetree/base/model", "r") as f:
-                model = f.read()
-                if "Raspberry Pi" in model:
-                    print("Pi")
-                    return "Raspberry Pi"    
+        return "Mac"
+    elif system == "Linux":
+        print("Pi")
+        return "Pi"    
     else:
         print("Running on an unknown system")
 
