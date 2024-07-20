@@ -1,0 +1,33 @@
+# python helper/detect_platform
+
+import platform
+
+system = platform.system()
+machine = platform.machine()
+
+# if system == "Darwin":
+#     print("Running on a Mac")
+# elif system == "Linux" and "arm" in machine.lower():
+#     print("Running on a Raspberry Pi")
+# else:
+#     print("Running on an unknown system")
+
+
+
+
+def detect():
+    if system == "Darwin":
+        print("Mac")
+        return "Raspberry Pi"
+    elif system == "Linux" and "arm" in machine.lower():
+        if os.path.exists("/sys/firmware/devicetree/base/model"):
+            with open("/sys/firmware/devicetree/base/model", "r") as f:
+                model = f.read()
+                if "Raspberry Pi" in model:
+                    print("Pi")
+                    return "Raspberry Pi"    
+    else:
+        print("Running on an unknown system")
+
+
+# detect()
