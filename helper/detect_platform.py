@@ -2,8 +2,7 @@
 
 import platform
 
-system = platform.system()
-machine = platform.machine()
+
 
 # if system == "Darwin":
 #     print("Running on a Mac")
@@ -13,9 +12,11 @@ machine = platform.machine()
 #     print("Running on an unknown system")
 
 
-
-
 def detect():
+
+    system = platform.system()
+    machine = platform.machine()
+
     if system == "Darwin":
         print("Mac")
         return "Mac"

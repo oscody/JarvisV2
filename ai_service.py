@@ -1,8 +1,8 @@
 import openai
 from openai import OpenAI
+import ollama
 
-
-def send_to_ai(user_input):
+def send_to_ai_mac(user_input):
 
     print(f"send_to_ai-{user_input}")
 
@@ -24,6 +24,24 @@ def send_to_ai(user_input):
     response = ''
     for chunk in streamed_completion:
             response += chunk.choices[0].delta.content
+
+    print(f"send_to_ai-{response}")
+    return response
+
+
+
+def send_to_ai_pi(user_input):
+
+    print(f"send_to_ai-{user_input}")
+
+
+    MODEL = 'tinyllama'
+    PROMPT = 'What is the capital of France?'
+
+    res = ollama.generate(model=MODEL, prompt=PROMPT)
+    print(f"\n{res['response']}")
+    print(f"\n [INFO] Total Duration: {(res['total_duration']/1e9):.2f} seconds")
+    response = res['response']
 
     print(f"send_to_ai-{response}")
     return response
