@@ -13,7 +13,7 @@ print("---------------------------------------------------------")
 
 
 MODEL = 'tinyllama'
-PROMPT = 'What is the capital of France?'
+PROMPT = 'Why is the sky blue?'
 
 res = ollama.generate(model=MODEL, prompt=PROMPT)
 print(f"\n{res['response']}")

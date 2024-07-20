@@ -34,14 +34,15 @@ def send_to_ai_pi(user_input):
 
     print(f"send_to_ai-{user_input}")
 
+    response = ollama.chat(model='tinyllama', messages=[
+    {
+        'role': 'user',
+        'content': user_input,
+    },
+    ])
 
-    MODEL = 'tinyllama'
-    PROMPT = 'What is the capital of France?'
 
-    res = ollama.generate(model=MODEL, prompt=PROMPT)
-    print(f"\n{res['response']}")
-    print(f"\n [INFO] Total Duration: {(res['total_duration']/1e9):.2f} seconds")
-    response = res['response']
-
-    print(f"send_to_ai-{response}")
-    return response
+    message_content = response['message']['content']
+    print(message_content)
+    
+    return message_content
