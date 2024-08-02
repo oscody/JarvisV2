@@ -36,7 +36,7 @@ def get_audio(text):
 
 def main():
     audio = get_audio("Hello, world!")
-    with open("voice/speechify.wav", "wb") as audio_file:
+    with open("Voice/speechify.wav", "wb") as audio_file:
         audio_file.write(audio)   
     # with open("./speech.wav", "wb") as audio_file:
     #     audio_file.write(audio)

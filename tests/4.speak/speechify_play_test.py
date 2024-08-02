@@ -10,7 +10,7 @@ load_dotenv()
 
 API_BASE_URL = "https://api.sws.speechify.com"
 API_KEY = os.getenv('speachifyAPI')
-VOICE_ID = "george"
+VOICE_ID = "Stacy"
 
 def get_audio(text):
     url = f"{API_BASE_URL}/v1/audio/speech"
@@ -35,16 +35,16 @@ def get_audio(text):
 
 def play_audio(audio_data):
     # Write the audio data to a temporary file
-    with open("voice/speechify_speech.wav", "wb") as audio_file:
+    with open("Voice/speechify_speech.wav", "wb") as audio_file:
         audio_file.write(audio_data)
     
     # Play the audio
-    wave_obj = sa.WaveObject.from_wave_file("voice/speechify_speech.wav")
+    wave_obj = sa.WaveObject.from_wave_file("Voice/speechify_speech.wav")
     play_obj = wave_obj.play()
     play_obj.wait_done()
 
 def main():
-    audio = get_audio("tell me that you love me")
+    audio = get_audio("say my name say my name say my name ")
     play_audio(audio)
 
 if __name__ == "__main__":
