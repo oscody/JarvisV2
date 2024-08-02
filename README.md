@@ -21,8 +21,9 @@ pygame vs pyaudio vs sounddevice
 
 5.26 seconds - python tests/1.recording/recording_sounddevice_test.py
 
+------------------------------------------------------------------------------------------------------------------------------------------------
 
-2. 
+2.STT
 
 small model size
 
@@ -38,3 +39,21 @@ python tests/2.transcibe/whisper_raw_audio_test.py
 python tests/2.transcibe/whisper_file_audio_test.py
 
 python tests/2.transcibe/whisper_from_file_audio_test.py
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+4.TTS
+
+ElevenLabs playsound not working on pi due to(pygobject)
+
+pi
+ElevenLabs playback time: 3.7715 seconds  
+Speechify playback time: 3.4199 seconds
+Piper playback time: 0.0001 seconds
+
+mac
+ElevenLabs playback time: 5.1008 seconds
+Speechify playback time: 3.3685 seconds
+Piper Not working on mac
+
