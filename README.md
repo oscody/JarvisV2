@@ -55,6 +55,20 @@ Recording stopped.
 Transcription: to have. It might look weird to you, but how about I show you what my custom coat? Well...
 Total execution time (with saving to file): 7.23 seconds
 
+
+
+
+pi
+Recording without saving to file...
+Recording stopped.
+Transcription: You know, no, no, no, no. No, no, no.
+Total execution time (without saving to file): 24.87 seconds
+
+Recording and saving to file...
+Recording stopped.
+Transcription: This is a weird set of things we have. If I look weird to you, but how about I show you what that cost don't go?
+Total execution time (with saving to file): 7.92 seconds
+
 ------------------------------------------------------------------------------------------------------------------------------------------------
 
 4.TTS
