@@ -41,6 +41,20 @@ python tests/2.transcibe/whisper_file_audio_test.py
 python tests/2.transcibe/whisper_from_file_audio_test.py
 
 
+
+
+
+mac
+Recording without saving to file...
+Recording stopped.
+Transcription: Thanks for watching!
+Total execution time (without saving to file): 7.23 seconds
+
+Recording and saving to file...
+Recording stopped.
+Transcription: to have. It might look weird to you, but how about I show you what my custom coat? Well...
+Total execution time (with saving to file): 7.23 seconds
+
 ------------------------------------------------------------------------------------------------------------------------------------------------
 
 4.TTS
