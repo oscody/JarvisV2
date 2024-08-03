@@ -1,3 +1,5 @@
+# this is playing audio from a specific file 
+
 import pyaudio
 import wave
 import time

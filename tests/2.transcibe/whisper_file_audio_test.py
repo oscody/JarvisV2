@@ -1,3 +1,5 @@
+# this records and saves it to a file and transcibes it
+
 import pyaudio
 import wave
 import time
