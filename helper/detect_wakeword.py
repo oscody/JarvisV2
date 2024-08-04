@@ -26,6 +26,9 @@ def detection_wake_word(platform):
 
 
     try:
+
+        print("Wake me up")
+
         porcupine = pvporcupine.create(
             access_key=ACCESS_KEY,
             keyword_paths=[KEYWORD_PATH]
@@ -42,7 +45,7 @@ def detection_wake_word(platform):
 
         while True:
 
-            print("Wake me up")
+            print("..")
 
             pcm = audio_stream.read(porcupine.frame_length, exception_on_overflow=False)
             pcm = struct.unpack_from("h" * porcupine.frame_length, pcm)
