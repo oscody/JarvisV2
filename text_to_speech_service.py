@@ -5,8 +5,22 @@ import soundfile as sf
 import sounddevice as sd
 import numpy as np
 
+import base64
+import json
+import requests
+import os
+from pydub import AudioSegment
+from io import BytesIO
+from dotenv import load_dotenv
 
 audioPath = "Voice/Wolf.wav"
+
+
+load_dotenv()
+
+API_BASE_URL = "https://api.sws.speechify.com"
+API_KEY = os.getenv('speachifyAPI')  # Ensure this matches the key in your .env file
+VOICE_ID = "Stacy"
 
 def geneate_audio_tts(text_to_speak):
 
@@ -80,3 +94,42 @@ def geneate_ppt_audio(text_to_speak):
     stream.stop()
     stream.close()
     
+
+
+def geneate_speechify_audio(text):
+
+    url = f"{API_BASE_URL}/v1/audio/speech"
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "content-type": "application/json"
+    }
+    payload = {
+        "input": f"<speak>{text}</speak>",
+        "voice_id": VOICE_ID,
+        "audio_format": "mp3",
+    }
+    response = requests.post(url, headers=headers, data=json.dumps(payload))
+
+    if response.status_code != 200:
+        raise Exception(f"{response.status_code} {response.reason}\n{response.text}")
+
+    response_data = response.json()
+    audio_data = base64.b64decode(response_data['audio_data'])
+
+    # Convert MP3 data to AudioSegment
+    audio_segment = AudioSegment.from_file(BytesIO(audio_data), format="mp3")
+    
+    # Export AudioSegment as raw PCM data
+    raw_data = audio_segment.raw_data
+    sample_rate = audio_segment.frame_rate
+    num_channels = audio_segment.channels
+    
+    # Convert raw data to numpy array
+    audio_array = np.frombuffer(raw_data, dtype=np.int16)
+    
+    # Play audio using sounddevice
+    sd.play(audio_array, samplerate=sample_rate)
+    sd.wait()  # Wait until the audio is finished playing
+
+
+

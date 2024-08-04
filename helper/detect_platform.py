@@ -18,10 +18,10 @@ def detect():
     machine = platform.machine()
 
     if system == "Darwin":
-        print("Mac")
+        # print("Mac")
         return "Mac"
     elif system == "Linux":
-        print("Pi")
+        # print("Pi")
         return "Pi"    
     else:
         print("Running on an unknown system")
