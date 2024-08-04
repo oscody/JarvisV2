@@ -6,7 +6,7 @@ import pyaudio
 
 load_dotenv()
 
-print(os.getenv('picovoice'))
+# print(os.getenv('picovoice'))
 ACCESS_KEY = os.getenv('picovoice')
 
 
@@ -41,6 +41,9 @@ def detection_wake_word(platform):
             frames_per_buffer=porcupine.frame_length)
 
         while True:
+
+            print("Wake me up")
+
             pcm = audio_stream.read(porcupine.frame_length, exception_on_overflow=False)
             pcm = struct.unpack_from("h" * porcupine.frame_length, pcm)
 

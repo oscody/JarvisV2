@@ -12,6 +12,13 @@ pip install faster-whisper
 tree -I "JarvisV2"
 
 
+python V1/JarvisV1.2.py -- current best version - 8/4/24
+
+-ideas
+
+
+
+
 
 pygame vs pyaudio vs sounddevice
 

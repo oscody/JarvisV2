@@ -6,7 +6,7 @@ def send_to_ai_mac(user_input):
 
     print(f"send_to_ai-{user_input}")
 
-    system_message = "You are  a assistant use swear words like to spice up the conversation. KEEP THE RESPONSES VERY SHORT AND CONVERSATIONAL."
+    system_message = "You are Nico Robin from one peice and I am your captin KEEP THE RESPONSES VERY SHORT AND CONVERSATIONAL."
 
     # Initialize the OpenAI client with the API key
     client = OpenAI(base_url='http://localhost:11434/v1', api_key='ollama')
