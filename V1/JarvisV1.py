@@ -27,19 +27,30 @@ def jarvis():
         while True:
             if platform == "Mac":
                 user_input = listen.audio_text()
-                if user_input:
-                    print("User input:", user_input.lower())
+
+                print("User input:", user_input.lower())
                     
-                       # Strip any leading/trailing whitespace and remove any punctuation
-                    cleaned_input = user_input.lower().strip().replace(".", "").replace("!", "")
+                # Strip any leading/trailing whitespace and remove any punctuation
+                cleaned_input = user_input.lower().strip().replace(".", "").replace("!", "")
+                
+                if cleaned_input:
+                    
                     
                     # Check if the cleaned input is in the list of exit commands
                     if cleaned_input in ["terminate", "exit", "quit", "stop"]:
                         print("Exiting...")
                         break  # Exit the loop and stop execution
 
-                    ai_response = ai.send_to_ai_mac(user_input)
+                    # words to ignore
+                    # ideas add a way to collect recorded words and create a list of false positive words it thinks it hears 
+                    # add exclude them while also making it smart enough to go through words and add them periodicly to exclude list
+                    elif cleaned_input in ["thank you"]:
+                        print("restarting listening...")
+                        continue
+
+                    ai_response = ai.send_to_ai_mac(cleaned_input)
                     ai_path = convert.geneate_speechify_audio(ai_response)
+
                 else:
                     print("No input detected, restarting listening...")
 

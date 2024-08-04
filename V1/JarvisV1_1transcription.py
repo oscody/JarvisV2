@@ -2,6 +2,9 @@
 import speech_recognition as sr
 import time
 import whisper
+import play_service as play
+
+siren = "sound_effects/puru_introv3.wav"
 
 def audio_text():
 
@@ -12,6 +15,7 @@ def audio_text():
     with sr.Microphone() as source:
 
         r.adjust_for_ambient_noise(source)
+        play.play_audio(siren)
         print("Say something!")
 
         try:
