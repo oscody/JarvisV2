@@ -92,3 +92,10 @@ ElevenLabs playback time: 5.1008 seconds
 Speechify playback time: 3.3685 seconds
 Piper Not working on mac
 
+
+testing piper tts on mac
+Time to synthesize and write to file: 0.1903 seconds
+Playsound playback time: 4.9927 seconds
+Simpleaudio playback time: 5.0114 seconds
+Sounddevice playback time (from file): 5.0628 seconds
+Sounddevice synthesize and stream time: 5.2620 seconds
