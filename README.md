@@ -99,3 +99,10 @@ Playsound playback time: 4.9927 seconds
 Simpleaudio playback time: 5.0114 seconds
 Sounddevice playback time (from file): 5.0628 seconds
 Sounddevice synthesize and stream time: 5.2620 seconds
+
+
+testing piper tts on Pi
+Time taken to synthesize and write to file: 0.9798 seconds
+Time taken to play back using simpleaudio: 5.0272 seconds
+Time taken to play back using sounddevice (from file): 4.9452 seconds
+Time taken to synthesize and stream audio using sounddevice: 5.9584 seconds
