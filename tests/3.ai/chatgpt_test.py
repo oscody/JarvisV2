@@ -26,4 +26,4 @@ elapsed_time = end_time - start_time
 print(completion.choices[0].message)
 answer = completion.choices[0].message.content
 print(f"Answer = {answer}")
-print(f"Time taken: {elapsed_time:.2f} seconds")
+print(f"Time taken gpt-3.5-turbo : {elapsed_time:.2f} seconds")
