@@ -1,12 +1,10 @@
-# not working
-
-
 import threading
 import datetime
 import pygame
 import time
 import os
-import openai
+# import openai
+from openai import OpenAI
 from pydantic import BaseModel, Field
 from typing import Optional
 import uuid
@@ -22,13 +20,15 @@ alarms = {}
 alarm_lock = threading.Lock()
 
 def play_alarm_sound(alarm_id):
-    file_path = "audio/alarm.WAV"
+    print(f"starting audio")
+    file_path = "alarm/alarm.WAV"
     
     if not os.path.exists(file_path):
         print(f"File not found: {file_path}")
         return
     
     while alarms.get(alarm_id, False):
+        # print(f"playing audio")
         pygame.mixer.music.load(file_path)
         pygame.mixer.music.play()
         time.sleep(5)  # Adjust sleep time according to the length of the sound
@@ -54,12 +54,8 @@ class CreateAlarm(BaseModel):
     time: str = Field(..., description="Time to set the alarm in HH:MM format (24-hour).")
     label: Optional[str] = Field(None, description="Optional label for the alarm.")
 
-# Initialize the OpenAI client with the Ollama API
-client = openai.OpenAI(
-    base_url='http://localhost:11434/v1',
-    api_key='ollama'
-)
-
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=OPENAI_API_KEY)
 
 def create_alarm_via_ollama(user_input: str):
     system_message = "You are an assistant that helps users create alarms."
@@ -93,7 +89,7 @@ def create_alarm_via_ollama(user_input: str):
 
     try:
         response = client.chat.completions.create(
-            model="llama3",
+             model="gpt-3.5-turbo",
             messages=messages,
             functions=functions,
             function_call="auto"  # Let the model decide to call a function
@@ -123,10 +119,14 @@ def create_alarm_via_ollama(user_input: str):
         # Accessing the content directly
         print("Assistant response:", choice.message.content)
 
+def get_current_time():
+    """Returns the current time in HH:MM format (24-hour)."""
+    now = datetime.datetime.now()
+    return now.strftime("%H:%M")
 
 def main():
     while True:
-        user_input = input("\nOptions:\n1. Create Alarm\n2. Stop Alarm\n3. Quit\nEnter your choice: ").strip().lower()
+        user_input = input("\nOptions:\n1. Create Alarm\n2. Stop Alarm\n3. Get Current Time\n4. Quit\nEnter your choice: ").strip().lower()
         
         if user_input in ["1", "create alarm"]:
             alarm_details = input("Please describe your alarm (e.g., 'Set an alarm for 07:30 labeled Morning Workout'):\n")
@@ -136,7 +136,11 @@ def main():
             alarm_id = input("Enter the Alarm ID to stop: ").strip()
             stop_alarm(alarm_id)
         
-        elif user_input in ["3", "quit"]:
+        elif user_input in ["3", "get current time"]:
+            current_time = get_current_time()
+            print(f"The current time is {current_time}.")
+        
+        elif user_input in ["4", "quit"]:
             print("Exiting...")
             # Stop all running alarms
             with alarm_lock:

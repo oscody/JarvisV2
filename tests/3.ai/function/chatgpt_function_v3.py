@@ -1,15 +1,14 @@
-# not working
-
-
 import threading
 import datetime
 import pygame
 import time
 import os
-import openai
+import random
+import string
+# import openai
+from openai import OpenAI
 from pydantic import BaseModel, Field
 from typing import Optional
-import uuid
 
 # Initialize pygame mixer for sound
 try:
@@ -22,13 +21,15 @@ alarms = {}
 alarm_lock = threading.Lock()
 
 def play_alarm_sound(alarm_id):
-    file_path = "audio/alarm.WAV"
+    print(f"starting audio")
+    file_path = "alarm/alarm.WAV"
     
     if not os.path.exists(file_path):
         print(f"File not found: {file_path}")
         return
     
     while alarms.get(alarm_id, False):
+        # print(f"playing audio")
         pygame.mixer.music.load(file_path)
         pygame.mixer.music.play()
         time.sleep(5)  # Adjust sleep time according to the length of the sound
@@ -54,12 +55,13 @@ class CreateAlarm(BaseModel):
     time: str = Field(..., description="Time to set the alarm in HH:MM format (24-hour).")
     label: Optional[str] = Field(None, description="Optional label for the alarm.")
 
-# Initialize the OpenAI client with the Ollama API
-client = openai.OpenAI(
-    base_url='http://localhost:11434/v1',
-    api_key='ollama'
-)
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=OPENAI_API_KEY)
 
+def generate_short_id():
+    """Generate a simple alphanumeric ID with a length of 4 to 5 characters."""
+    length = random.choice([4, 5])  # Randomly choose between 4 or 5 characters
+    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=length))
 
 def create_alarm_via_ollama(user_input: str):
     system_message = "You are an assistant that helps users create alarms."
@@ -93,13 +95,13 @@ def create_alarm_via_ollama(user_input: str):
 
     try:
         response = client.chat.completions.create(
-            model="llama3",
+             model="gpt-3.5-turbo",
             messages=messages,
             functions=functions,
             function_call="auto"  # Let the model decide to call a function
         )
     except Exception as e:
-        print(f"Error communicating with Ollama: {e}")
+        print(f"Error communicating with gpt: {e}")
         return
 
     choice = response.choices[0]
@@ -111,8 +113,8 @@ def create_alarm_via_ollama(user_input: str):
         if function_name == "create_alarm":
             try:
                 args = CreateAlarm.parse_raw(arguments)
-                # Generate a unique alarm ID
-                alarm_id = str(uuid.uuid4())
+                # Generate a short, easy-to-remember alarm ID
+                alarm_id = generate_short_id()
                 start_alarm(alarm_id, args.time, args.label)
                 print(f"Alarm set for {args.time} with label '{args.label}' (ID: {alarm_id}).")
             except Exception as e:
@@ -123,10 +125,14 @@ def create_alarm_via_ollama(user_input: str):
         # Accessing the content directly
         print("Assistant response:", choice.message.content)
 
+def get_current_time():
+    """Returns the current time in HH:MM format (24-hour)."""
+    now = datetime.datetime.now()
+    return now.strftime("%H:%M")
 
 def main():
     while True:
-        user_input = input("\nOptions:\n1. Create Alarm\n2. Stop Alarm\n3. Quit\nEnter your choice: ").strip().lower()
+        user_input = input("\nOptions:\n1. Create Alarm\n2. Stop Alarm\n3. Get Current Time\n4. Quit\nEnter your choice: ").strip().lower()
         
         if user_input in ["1", "create alarm"]:
             alarm_details = input("Please describe your alarm (e.g., 'Set an alarm for 07:30 labeled Morning Workout'):\n")
@@ -136,7 +142,11 @@ def main():
             alarm_id = input("Enter the Alarm ID to stop: ").strip()
             stop_alarm(alarm_id)
         
-        elif user_input in ["3", "quit"]:
+        elif user_input in ["3", "get current time"]:
+            current_time = get_current_time()
+            print(f"The current time is {current_time}.")
+        
+        elif user_input in ["4", "quit"]:
             print("Exiting...")
             # Stop all running alarms
             with alarm_lock:
