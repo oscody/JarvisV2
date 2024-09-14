@@ -107,16 +107,16 @@ conversational_rag_chain = RunnableWithMessageHistory(
     output_messages_key="answer"
 )
 
-
-user_input = input("your question ").strip().lower()
-if user_input:
-    session_history=get_session_history(session_id)
-    response = conversational_rag_chain.invoke(
-        {"input": user_input},
-        config={
-            "configurable": {"session_id":session_id}
-        },  # constructs a key "abc123" in `store`.
-    )
-    print(session_state)
-    print("Assistant:", response['answer'])
-    print("Chat History:", session_history.messages)
+while True:
+    user_input = input("your question ").strip().lower()
+    if user_input:
+        session_history=get_session_history(session_id)
+        response = conversational_rag_chain.invoke(
+            {"input": user_input},
+            config={
+                "configurable": {"session_id":session_id}
+            },  # constructs a key "abc123" in `store`.
+        )
+        print(session_state)
+        print("Assistant:", response['answer'])
+        print("Chat History:", session_history.messages)
