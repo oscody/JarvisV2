@@ -10,7 +10,7 @@ from langchain.chains import ConversationChain
 
 
 # Initialize the OpenAI client with the API key
-llm=Ollama(model="tinyllama")
+llm=Ollama(model="phi3")
 
 
 memory = ConversationBufferMemory(return_messages=True,memory_key="chat_history")
@@ -32,6 +32,7 @@ while True:
 
     user_input = input("ask me something:\n").strip().lower()
     result = conversation.invoke({"input": {user_input}})
+    # print(f"\n{result}")
     print(f"\n{result}")
 
 

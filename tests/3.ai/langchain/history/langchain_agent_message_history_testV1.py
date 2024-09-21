@@ -1,4 +1,5 @@
 
+#  Not working
 
 import time
 from langchain_community.llms import Ollama
@@ -14,7 +15,7 @@ from langchain.tools import tool
 import os
 
 # Initialize the OpenAI client with the API key
-llm=Ollama(model="tinyllama")
+llm=Ollama(model="phi3")
 
 @tool
 def get_weather(location: str) -> str:
