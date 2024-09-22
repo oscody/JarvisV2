@@ -41,13 +41,15 @@ def jarvis():
 
                 while count < 2:
 
-                    if platform == "Mac":
-                        user_input = listen.audio_text()
-                    elif platform == "Pi":
-                        user_input = transcribe.transcribe_with_whisper_Pi()
-                    else:
-                        print("Unsupported platform.")
-                        return
+                    # if platform == "Mac":
+                    #     user_input = listen.audio_text()
+                    # elif platform == "Pi":
+                    #     user_input = transcribe.transcribe_with_whisper_Pi()
+                    # else:
+                    #     print("Unsupported platform.")
+                    #     return
+                    
+                    user_input = listen.audio_text()
 
                     if user_input:
 

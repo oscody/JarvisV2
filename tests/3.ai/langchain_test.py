@@ -4,10 +4,10 @@ from langchain_community.llms import Ollama
 from langchain.prompts import ChatPromptTemplate
 
 # Initialize the OpenAI client with the API key
-llm=Ollama(model="tinyllama")
+llm=Ollama(model="phi3")
 
 prompt = ChatPromptTemplate.from_messages([
-    ("system", "You are a helpful assistant answer questions is in only 5 1 sentence"),
+    ("system", "You are a helpful assistant answer questions is in only 1 sentence"),
     ("user", "{input}"),
 ])
 
