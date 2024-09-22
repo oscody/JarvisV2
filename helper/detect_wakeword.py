@@ -49,7 +49,7 @@ def detection_wake_word(platform):
 
         while True:
 
-            print("..")
+            # print("..")
 
             pcm = audio_stream.read(porcupine.frame_length, exception_on_overflow=False)
             pcm = struct.unpack_from("h" * porcupine.frame_length, pcm)
