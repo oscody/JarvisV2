@@ -7,12 +7,15 @@ import pyaudio
 load_dotenv()
 
 # print(os.getenv('picovoice'))
-ACCESS_KEY = os.getenv('picovoice')
+picovoiceKey = os.getenv('picovoiceKey')
+print(f"picovoiceKey-{picovoiceKey}")
 
 
 keyWordPathPi = os.getenv('keyWordPathPi')
 keyWordPathMac = os.getenv('keyWordPathMac')
 
+print(f"pi-{keyWordPathPi}")
+print(f"mac-{keyWordPathMac}")
 
 def detection_wake_word(platform):
     porcupine = None
@@ -30,8 +33,9 @@ def detection_wake_word(platform):
         print("Wake me up")
 
         porcupine = pvporcupine.create(
-            access_key=ACCESS_KEY,
-            keyword_paths=[KEYWORD_PATH]
+            access_key=picovoiceKey,
+            keyword_paths=[KEYWORD_PATH],
+            # keywords=['computer']
         )
         
         pa = pyaudio.PyAudio()
