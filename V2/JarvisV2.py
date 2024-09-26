@@ -29,7 +29,7 @@ def jarvis():
     try:
         while True:
             
-            model = Ollama(model_name="phi3")
+            model = Ollama(model_name="llama3.1")
 
             # Outer loop: Wait for the wake word
             if wake.detection_wake_word(platform):
