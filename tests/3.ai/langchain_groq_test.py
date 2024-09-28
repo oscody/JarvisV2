@@ -13,10 +13,6 @@ print(groq_api_key)
 # Initialize OpenAI client for GPT-3.5-turbo
 model=ChatGroq(model="Gemma2-9b-It",groq_api_key=groq_api_key)
 
-# Define the prompt and system message
-user_input = "what is the capital of jamaica?"
-system_message = "You are a helpful assistant"
-
 # Start the timer for GPT-3.5-turbo
 start_time = time.time()
 
@@ -35,7 +31,7 @@ end_time = time.time()
 elapsed_time_turbo = end_time - start_time
 
 # Print GPT-3.5-turbo results
-print(ai_msg)
+print(ai_msg.content)
 print(f"Time taken groq Gemma2 : {elapsed_time_turbo:.2f} seconds")
 
 
