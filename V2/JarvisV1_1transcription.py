@@ -1,12 +1,12 @@
 
 import speech_recognition as sr
 import time
-import whisper
 import play_service as play
+
 
 siren = "sound_effects/puru_introv3.wav"
 
-def audio_text():
+def audio_text(platform):
 
     r = sr.Recognizer()
 
@@ -14,12 +14,28 @@ def audio_text():
 
     with sr.Microphone() as source:
 
-        r.adjust_for_ambient_noise(source)
+
+        if platform == 'Pi':
+            r.energy_threshold = 150
+            r.pause_threshold = 1.0
+            r.phrase_threshold = 0.3
+            r.dynamic_energy_threshold = False
+        else:
+            r.adjust_for_ambient_noise(source)
+
+
         play.play_audio(siren)
         print("Say something!")
 
         try:
-            audio = r.listen(source,timeout=10)
+
+            if platform == 'Pi':
+                audio = r.listen(source, timeout=5,phrase_time_limit=15,)
+            else:
+                audio = r.listen(source,timeout=10)
+
+            print("found audio")
+
             
             text = r.recognize_whisper(audio)
             print("You said: " + text)

@@ -25,12 +25,15 @@ print(f"V2")
 platform = detect()
 print(f"Platform detected: {platform}")
 
+if platform == "Mac":
+    model = Ollama(model_name="llama3.1")
+elif platform == "Pi":
+    model = Ollama(model_name="tinyllama")
+
 def jarvis():
     try:
         while True:
             
-            model = Ollama(model_name="llama3.1")
-
             # Outer loop: Wait for the wake word
             if wake.detection_wake_word(platform):
 
@@ -40,16 +43,8 @@ def jarvis():
                 count = 0
 
                 while count < 2:
-
-                    # if platform == "Mac":
-                    #     user_input = listen.audio_text()
-                    # elif platform == "Pi":
-                    #     user_input = transcribe.transcribe_with_whisper_Pi()
-                    # else:
-                    #     print("Unsupported platform.")
-                    #     return
                     
-                    user_input = listen.audio_text()
+                    user_input = listen.audio_text(platform)
 
                     if user_input:
 
