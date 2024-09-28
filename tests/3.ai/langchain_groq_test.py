@@ -11,7 +11,7 @@ groq_api_key=os.getenv("GROQ_API_KEY")
 print(groq_api_key)
 
 # Initialize OpenAI client for GPT-3.5-turbo
-model=ChatGroq(model="Gemma2-9b-It",groq_api_key=groq_api_key)
+model=ChatGroq(model="llama-3.2-1b-preview",groq_api_key=groq_api_key)
 
 # Start the timer for GPT-3.5-turbo
 start_time = time.time()

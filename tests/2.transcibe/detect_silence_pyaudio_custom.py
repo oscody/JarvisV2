@@ -1,6 +1,5 @@
 import pyaudio
 import wave
-import tempfile
 import math
 import struct
 import simpleaudio as sa

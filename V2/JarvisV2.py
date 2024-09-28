@@ -8,11 +8,12 @@ root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, root_dir)
 
 # Import modules from the root directory
-import speech_to_text_service as transcribe
+from V2.transcribe_service import transcribe
 import play_service as play
 import record_service as rec
 # import ai_service as ai
-from V2.ai_serviceV2 import Ollama
+# from V2.ai_serviceV2 import Ollama
+from V2.ai_serviceV3 import llm
 import text_to_speech_service as convert
 
 # Import other modules
@@ -25,13 +26,13 @@ print(f"V2")
 platform = detect()
 print(f"Platform detected: {platform}")
 
-if platform == "Mac":
-    model = Ollama(model_name="llama3.1")
-elif platform == "Pi":
-    model = Ollama(model_name="tinyllama")
+
 
 def jarvis():
     try:
+        # Create an instance
+        transcriber = transcribe()
+        ai_model = llm()
         while True:
             
             # Outer loop: Wait for the wake word
@@ -44,8 +45,14 @@ def jarvis():
 
                 while count < 2:
                     
-                    user_input = listen.audio_text(platform)
-
+                    if platform == "Mac":
+                        user_input = transcriber.speech_recognition_whisper()
+                    elif platform == "Pi":
+                        user_input = transcriber.custom_transcribe_whisper()
+                    else:
+                        print("Unsupported platform.")
+                        return
+                    
                     if user_input:
 
                         # Strip any leading/trailing whitespace and remove any punctuation
@@ -67,7 +74,7 @@ def jarvis():
 
                         # Process the user input with AI service
                         # ai_response = ai.send_to_ai_mac(user_input) if platform == "Mac" else ai.send_to_ai_pi(user_input)
-                        ai_response = model.invoke(user_input,session_id="1", language="english")
+                        ai_response = ai_model.invoke(user_input,session_id="1", language="english")
                         ai_path = convert.geneate_speechify_audio(ai_response) if platform == "Mac" else convert.geneate_ppt_audio(ai_response)
                         # break  # Break the inner loop as we received valid input
                     
