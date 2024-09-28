@@ -70,7 +70,7 @@ def geneate_ppt_audio(text_to_speak):
 
     from piper.voice import PiperVoice
 
-    print("\Playing...audio")
+    print("Playing...audio")
 
     voicedir = "pipertts/" # Where onnx model files are stored on my machine
     model = voicedir + "en_US-norman-medium.onnx"
@@ -89,7 +89,7 @@ def geneate_ppt_audio(text_to_speak):
         stream.write(int_data)
     
 
-    print("\stoping...audio")
+    print("stoping...audio")
 
     stream.stop()
     stream.close()

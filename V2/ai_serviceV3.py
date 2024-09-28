@@ -70,16 +70,20 @@ class llm:
 
     def invoke(self, user_input: str, session_id: str = "1", language: str = "english"):
         print(f"path to llm-{user_input}")
-        with_message_history = RunnableWithMessageHistory(
-            self.chain,
-            self.get_session_history,
-            input_messages_key="messages",
-        )
-        config = {"configurable": {"session_id": session_id}}
-        response = with_message_history.invoke(
-            {"messages": [HumanMessage(content=user_input)], "language": language},
-            config=config,
-        )
-        print(f"llm-{response}")
-        print(f"llm-{response.content}")
-        return response.content
+
+        try:
+            with_message_history = RunnableWithMessageHistory(
+                self.chain,
+                self.get_session_history,
+                input_messages_key="messages",
+            )
+            config = {"configurable": {"session_id": session_id}}
+            response = with_message_history.invoke(
+                {"messages": [HumanMessage(content=user_input)], "language": language},
+                config=config,
+            )
+            print(f"llm-{response}")
+            print(f"llm-{response.content}")
+            return response.content
+        except KeyboardInterrupt:
+            print(f"error sending to AI")
