@@ -11,16 +11,20 @@ import whisper
 r = sr.Recognizer()
 
 # Set the total duration to listen for (in seconds)
-total_listen_duration = 15
+total_listen_duration = 10
 start_time = time.time()
 
 with sr.Microphone() as source:
     # Adjust for ambient noise
-    r.adjust_for_ambient_noise(source, duration=0.5)
+    # r.adjust_for_ambient_noise(source, duration=0.5)
     print("Say something!")
+
+    r.energy_threshold = 150
+    r.pause_threshold = 1.0
+    r.phrase_threshold = 0.3
     
     print(f"Initial energy threshold: {r.energy_threshold}")
-    r.dynamic_energy_threshold = True
+    r.dynamic_energy_threshold = False
 
     # Continue listening until total_listen_duration has passed
     while time.time() - start_time < total_listen_duration:
@@ -29,7 +33,8 @@ with sr.Microphone() as source:
             print(f"Current energy threshold: {current_threshold}")
             
             # Listen for speech with a timeout of 5 seconds
-            audio = r.listen(source, timeout=5)
+            audio = r.listen(source, timeout=5,phrase_time_limit=15,)
+            print("found audio")
 
             # Process the audio with Whisper
             text = r.recognize_whisper(audio)
