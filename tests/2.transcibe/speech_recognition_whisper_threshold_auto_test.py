@@ -2,6 +2,8 @@
 # Initial energy threshold: 322.8907883968555
 # Current energy threshold: 322.8907883968555
 
+# https://github.com/PromtEngineer/Verbi/blob/main/voice_assistant/audio.py
+
 import speech_recognition as sr
 import time
 import whisper
