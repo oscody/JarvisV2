@@ -43,6 +43,7 @@ class transcribe:
     def record_until_pause(self):
         """Record audio from the microphone until a pause is detected."""
         print("Listening... Speak now.")
+        play.play_audio(self.siren)
         audio = pyaudio.PyAudio()
         stream = audio.open(format=self.FORMAT, channels=self.CHANNELS,
                             rate=self.RATE, input=True,
