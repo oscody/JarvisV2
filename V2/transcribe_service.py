@@ -22,10 +22,14 @@ class transcribe:
         # Get the directory of the current script
         self.script_dir = os.path.dirname(os.path.abspath(__file__))
 
-        self.file_path = os.path.join(self.script_dir, "../../voice_recording/")
+        # Get the parent directory
+        parent_dir = os.path.dirname(self.script_dir)
+
+        self.file_path = os.path.join(parent_dir, "voice_recording/")
         print("file_path", self.file_path)
-        self.file_name = "JarvisV2.wav"
+        self.file_name = "Jarvis_recordingV2.wav"
         self.file_path = os.path.join(self.file_path, self.file_name)
+        print(f"file_path-{self.file_path}")
 
         self.siren = "sound_effects/puru_introv3.wav"
 
