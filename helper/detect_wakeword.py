@@ -8,14 +8,14 @@ load_dotenv()
 
 # print(os.getenv('picovoice'))
 picovoiceKey = os.getenv('picovoiceKey')
-print(f"picovoiceKey-{picovoiceKey}")
+# print(f"picovoiceKey-{picovoiceKey}")
 
 
 keyWordPathPi = os.getenv('keyWordPathPi')
 keyWordPathMac = os.getenv('keyWordPathMac')
 
-print(f"pi-{keyWordPathPi}")
-print(f"mac-{keyWordPathMac}")
+# print(f"pi-{keyWordPathPi}")
+# print(f"mac-{keyWordPathMac}")
 
 def detection_wake_word(platform):
     porcupine = None

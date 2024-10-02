@@ -22,10 +22,10 @@ groq_modelName = "llama-3.2-1b-preview"
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
-print(f"OPENAI_API_KEY{OPENAI_API_KEY}")
+# print(f"OPENAI_API_KEY{OPENAI_API_KEY}")
 
 groq_api_key=os.getenv("GROQ_API_KEY")
-print(f"groq_api_key{groq_api_key}")
+# print(f"groq_api_key{groq_api_key}")
 
 class llm:
     def __init__(self, model_name="",platform=""):
