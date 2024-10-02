@@ -17,7 +17,7 @@ class transcribe:
         self.RATE = 44100
         self.CHUNK = 1024
         self.THRESHOLD = 1000  # Silence threshold
-        self.SILENCE_DURATION = 1  # Seconds of silence to signify end of command
+        self.SILENCE_DURATION = 3  # Seconds of silence to signify end of command
 
         # Get the directory of the current script
         self.script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -26,10 +26,10 @@ class transcribe:
         parent_dir = os.path.dirname(self.script_dir)
 
         self.file_path = os.path.join(parent_dir, "voice_recording/")
-        print("file_path", self.file_path)
+        # print("file_path", self.file_path)
         self.file_name = "Jarvis_recordingV2.wav"
         self.file_path = os.path.join(self.file_path, self.file_name)
-        print(f"file_path-{self.file_path}")
+        # print(f"file_path-{self.file_path}")
 
         self.siren = "sound_effects/puru_introv3.wav"
 
@@ -43,7 +43,6 @@ class transcribe:
     def record_until_pause(self):
         """Record audio from the microphone until a pause is detected."""
         print("Listening... Speak now.")
-        play.play_audio(self.siren)
         audio = pyaudio.PyAudio()
         stream = audio.open(format=self.FORMAT, channels=self.CHANNELS,
                             rate=self.RATE, input=True,
@@ -62,14 +61,19 @@ class transcribe:
                 if not is_silence:
                     started = True
                     frames.append(data)
+                    play.play_audio(self.siren)
             else:
                 frames.append(data)
                 if is_silence:
                     silent_chunks += 1
+                    print(f"Silent chunk {silent_chunks}/{silent_chunks_threshold}")
                 else:
+                    if silent_chunks > 0:
+                        print("Sound detected, resetting silent chunk counter.")
                     silent_chunks = 0
 
                 if silent_chunks > silent_chunks_threshold:
+                    print("Silence detected long enough, stopping recording.")
                     break
 
         stream.stop_stream()

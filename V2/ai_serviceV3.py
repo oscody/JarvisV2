@@ -82,7 +82,7 @@ class llm:
                 {"messages": [HumanMessage(content=user_input)], "language": language},
                 config=config,
             )
-            print(f"llm-{response}")
+            # print(f"llm-{response}")
             print(f"llm-{response.content}")
             return response.content
         except KeyboardInterrupt:
