@@ -17,7 +17,7 @@ class transcribe:
         self.RATE = 44100
         self.CHUNK = 1024
         self.THRESHOLD = 1000  # Silence threshold
-        self.SILENCE_DURATION = 1.5  # Seconds of silence to signify end of command
+        self.SILENCE_DURATION = 2  # Seconds of silence to signify end of command
 
         # Get the directory of the current script
         self.script_dir = os.path.dirname(os.path.abspath(__file__))
