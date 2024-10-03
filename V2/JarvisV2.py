@@ -20,13 +20,11 @@ import text_to_speech_service as convert
 from helper.detect_platform import detect
 import V2.JarvisV1_1transcription as listen
 import helper.detect_wakeword as wake
+import helper.file_handler as file
 
-print(f"V2")
-
+# print(f"V2")s
 platform = detect()
-print(f"Platform detected: {platform}")
-
-
+# print(f"Platform detected: {platform}")
 
 def jarvis():
     try:
@@ -76,7 +74,7 @@ def jarvis():
                         # ai_response = ai.send_to_ai_mac(user_input) if platform == "Mac" else ai.send_to_ai_pi(user_input)
                         ai_response = ai_model.invoke(user_input,session_id="1", language="english")
                         # ai_path = convert.geneate_speechify_audio(ai_response) if platform == "Mac" else convert.geneate_ppt_audio(ai_response)
-                        convert.geneate_speechify_audio(ai_response)
+                        convert.generate_elevenlabs_audio(ai_response)
 
                         # break  # Break the inner loop as we received valid input
                     

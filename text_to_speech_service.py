@@ -13,6 +13,19 @@ from pydub import AudioSegment
 from io import BytesIO
 from dotenv import load_dotenv
 
+from elevenlabs import VoiceSettings
+from elevenlabs.client import ElevenLabs
+from playsound import playsound
+
+ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY")
+
+if not ELEVENLABS_API_KEY:
+    raise ValueError("ELEVENLABS_API_KEY environment variable not set")
+
+client = ElevenLabs(
+    api_key=ELEVENLABS_API_KEY,
+)
+
 audioPath = "Voice/Wolf.wav"
 
 
@@ -60,10 +73,6 @@ def geneate_audio_tts(text_to_speak):
     sample_rate = config.audio.sample_rate
     sf.write(output_file_path, synthesized_audio, sample_rate)
     return output_file_path
-
-
-
-
 
 
 def geneate_ppt_audio(text_to_speak):
@@ -133,3 +142,34 @@ def geneate_speechify_audio(text):
 
 
 
+
+
+def generate_elevenlabs_audio(text: str) -> str:
+
+    # Calling the text_to_speech conversion API with detailed parameters
+    response = client.text_to_speech.convert(
+        voice_id="JnkQ7OBgYyHkEXaf3GJ6",  # test bogle
+        optimize_streaming_latency="0",
+        output_format="mp3_22050_32",
+        text=text,
+        model_id="eleven_turbo_v2",  # use the turbo model for low latency, for other languages use the `eleven_multilingual_v2`
+        voice_settings=VoiceSettings(
+            stability=0.0,
+            similarity_boost=1.0,
+            style=0.0,
+            use_speaker_boost=True,
+        ),
+    )
+
+    # Generating a unique file name for the output MP3 file
+    save_file_path = f"Voice/elevenlabs_speech.mp3"
+    # Writing the audio stream to the file
+
+    with open(save_file_path, "wb") as f:
+        for chunk in response:
+            if chunk:
+                f.write(chunk)
+    playsound(save_file_path)
+    print(f"A new audio file was saved successfully at {save_file_path}")
+    return save_file_path
+   
