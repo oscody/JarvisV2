@@ -74,7 +74,8 @@ def jarvis():
                         # ai_response = ai.send_to_ai_mac(user_input) if platform == "Mac" else ai.send_to_ai_pi(user_input)
                         ai_response = ai_model.invoke(user_input,session_id="1", language="english")
                         # ai_path = convert.geneate_speechify_audio(ai_response) if platform == "Mac" else convert.geneate_ppt_audio(ai_response)
-                        convert.generate_elevenlabs_audio(ai_response)
+                        convert.generate_elevenlabs_audio(ai_response) if platform == "Mac" else convert.generate_elevenlabs_pi_audio(ai_response)
+                        # convert.generate_elevenlabs_audio(ai_response)
 
                         # break  # Break the inner loop as we received valid input
                     
