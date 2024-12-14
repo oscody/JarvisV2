@@ -17,7 +17,7 @@ arxiv = ArxivQueryRun(api_wrapper=arxiv_wrapper)
 api_wrapper = WikipediaAPIWrapper(top_k_results=1, doc_content_chars_max=200)
 wiki = WikipediaQueryRun(api_wrapper=api_wrapper)
 
-search = DuckDuckGoSearchRun(name="Search")
+# search = DuckDuckGoSearchRun(name="Search")
 
 # Get Groq API Key from environment variable or prompt user input
 api_key = os.getenv("GROQ_API_KEY")
@@ -36,9 +36,11 @@ for msg in messages:
     else:
         print(f"User: {msg['content']}")
 
-# Main loop to interact with the chatbot
-while True:
-    prompt = input("You: ")
+# # Main loop to interact with the chatbot
+# while True:
+    # prompt = input("You: ")
+
+    prompt = "tell me about edwarard snoden"
 
     if prompt.lower() in ["exit", "quit"]:
         print("Goodbye!")
@@ -50,7 +52,10 @@ while True:
     os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
     llm = ChatOpenAI(model_name="gpt-3.5-turbo")
     
-    tools = [search, arxiv, wiki]
+    # tools = [search, arxiv, wiki]
+
+    tools = [arxiv, wiki]
+
     
     # Initialize the agent
     search_agent = initialize_agent(tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, handling_parsing_errors=True)

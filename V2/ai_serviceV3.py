@@ -36,7 +36,7 @@ class llm:
             [
                 (
                     "system",
-                    "{{system_message}}. {language}.",
+                    "Strict adherence to these guidelines is crucial. Answer with maximal 1-2 sentences.You are a assistant called Zenith. Answer any questions without any additional content. {language}.",
                 ),
                 MessagesPlaceholder(variable_name="messages"),
             ]
@@ -69,7 +69,7 @@ class llm:
         return self.store[session_id]
 
     def invoke(self, user_input: str, session_id: str = "1", language: str = "english"):
-        print(f"path to llm-{user_input}")
+        print(f"user input-{user_input}")
 
         try:
             with_message_history = RunnableWithMessageHistory(
