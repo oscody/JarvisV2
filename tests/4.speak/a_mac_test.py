@@ -11,7 +11,7 @@ import requests
 import base64
 import json
 import sounddevice as sd
-# from piper.voice import PiperVoice
+from piper.voice import PiperVoice
 
 # Load environment variables
 load_dotenv()
@@ -127,15 +127,15 @@ def test_playback_speed():
     speechify_playback_time = time.time() - start_time
 
     # # Piper Test
-    # piper_wav = piper_text_to_speech(text)
-    # start_time = time.time()
-    # play_audio(piper_wav)
-    # piper_playback_time = time.time() - start_time
+    piper_wav = piper_text_to_speech(text)
+    start_time = time.time()
+    play_audio(piper_wav)
+    piper_playback_time = time.time() - start_time
 
     # Print results
     print(f"ElevenLabs playback time: {elevenlabs_playback_time:.4f} seconds")
     print(f"Speechify playback time: {speechify_playback_time:.4f} seconds")
-    # print(f"Piper playback time: {piper_playback_time:.4f} seconds")
+    print(f"Piper playback time: {piper_playback_time:.4f} seconds")
 
 if __name__ == "__main__":
     test_playback_speed()

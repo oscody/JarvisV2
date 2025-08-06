@@ -14,7 +14,7 @@ def send_to_ai_mac(user_input):
     messages = [{"role": "system", "content": system_message}] + [{"role": "user", "content": user_input}]
 
     streamed_completion = client.chat.completions.create(
-        model="llama3",
+        model="llama3.2",
         messages=messages,
         temperature=1,
         stream=True

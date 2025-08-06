@@ -1,0 +1,14 @@
+openai>=1.98.0
+torch>=2.7.1
+faster-whisper>=1.1.1
+pygame>=2.6.1
+sounddevice>=0.5.2
+simpleaudio>=1.0.4
+playsound==1.2.2
+PyAudio>=0.2.14
+ollama>=0.5.1
+soundfile>=0.13.1
+pydub>=0.25.1
+python-dotenv>=1.1.1
+elevenlabs>=2.8.1
+piper-tts 

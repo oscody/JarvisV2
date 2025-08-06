@@ -25,7 +25,7 @@ def jarvis():
             if platform == "Mac":
                 user_input = transcribe.transcribe_with_whisper_Mac(rec_audio)
                 ai_response = ai.send_to_ai_mac(user_input)
-                ai_path = convert.geneate_audio_tts(ai_response)
+                ai_path = convert.geneate_ppt_audio(ai_response)
                 play.play_audio(ai_path)
 
             elif platform == "Pi":

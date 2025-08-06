@@ -1,5 +1,8 @@
 
 
+# Import audioop patch for Python 3.13 compatibility
+import audioop_patch
+
 import soundfile as sf
 
 import sounddevice as sd
@@ -21,8 +24,8 @@ import pygame
 ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY")
 elevenLabs_bogle_voiceID = os.getenv("elevenLabs_bogle_voiceID")
 
-if not ELEVENLABS_API_KEY:
-    raise ValueError("ELEVENLABS_API_KEY environment variable not set")
+# if not ELEVENLABS_API_KEY:
+#     raise ValueError("ELEVENLABS_API_KEY environment variable not set")
 
 client = ElevenLabs(
     api_key=ELEVENLABS_API_KEY,
@@ -95,8 +98,14 @@ def geneate_ppt_audio(text_to_speak):
     stream = sd.OutputStream(samplerate=voice.config.sample_rate, channels=1, dtype='int16')
     stream.start()
 
-    for audio_bytes in voice.synthesize_stream_raw(text_to_speak):
-        int_data = np.frombuffer(audio_bytes, dtype=np.int16)
+
+    # for audio_bytes in voice.synthesize_stream_raw(text_to_speak):
+    #     int_data = np.frombuffer(audio_bytes, dtype=np.int16)
+
+    for chunk in voice.synthesize(text_to_speak):
+        # Convert the audio data to the correct format
+        audio_data = chunk.audio_int16_bytes
+        int_data = np.frombuffer(audio_data, dtype=np.int16)
         stream.write(int_data)
     
 
